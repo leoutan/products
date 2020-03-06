@@ -1,12 +1,14 @@
 products = []
-
+#讀取檔案
 with open('products.csv', 'r', encoding = 'utf-8') as f:
 	for line in f:
-		r = line.strip().split(',')
-		name = r[0]
-		price = r[1]
+		if '商品, 價格' in line:
+			continue
+		name, price = line.strip().split(',')
 		products.append([name, price])
 print(products)
+
+#輸入新加入的名稱價格
 while True:
 	name = input('請輸入商品名稱: ')
 	if name == 'q':
@@ -15,10 +17,13 @@ while True:
 	p = []
 	p = [name, price]
 	products.append(p)
+
+# 印出商品價格
 print(products)
 for p in products:
 	print(p[0], '的價格為', p[1])
 
+#寫入檔案
 with open('products.csv', 'w', encoding = 'utf-8') as f:
 	f.write('商品, 價格\n')
 	for p in products:
